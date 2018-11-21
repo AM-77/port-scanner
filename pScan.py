@@ -4,8 +4,9 @@
 from logging import getLogger, ERROR
 getLogger("scapy.runtime").setLevel(ERROR) 
 
-from scapy.all import *
-import sys
+from scapy.all import * 
+import sys 	#for system calls
+import re 	#for regular expression 
 
 #Getting input from the user
 def inputs():
@@ -24,8 +25,12 @@ def inputs():
 		#Exit the program with exit code = 1 / there was an error
 		sys.exit(1)
 	
-	ip = raw_input("[*] Target ip address : ")
-	#add is_valid_ip
+	ip = str(raw_input("[*] Target ip address : "))
+	#Testing if is_valid_ip
+	if is_valid_ip(ip) is not True:
+		print "[!] Unvalid ip address."
+		#Exit the program with exit code = 1 / there was an error
+		sys.exit(1)
 	
 	ports_range = range(int(min_port), int(max_port)+1)
 	
@@ -55,5 +60,39 @@ def is_valid_port(port):
 	else:
 		return False
 		
+#Testing if the ip is valid
+def is_valid_ip(ip):
+	#re.
+	if re.match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip) is None:
+ 		return False
+	else:
+	 	return True
+
+		
+		
+		
+		
 if __name__ == "__main__":
 	print inputs()
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
