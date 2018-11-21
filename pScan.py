@@ -62,37 +62,29 @@ def is_valid_port(port):
 		
 #Testing if the ip is valid
 def is_valid_ip(ip):
-	#re.
 	if re.match("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])$", ip) is None:
  		return False
 	else:
 	 	return True
 
-		
-		
-		
-		
-if __name__ == "__main__":
-	print inputs()
+#Scanning port
+def scan_port(p, ip):
+	#rundom source port
+	sp = RandShort()
 	
+	conf.verb = 0
+	#send and receive a packet from the target
+	pkt = sr1(IP(dst=ip)/TCP(sport = sp, dport = p, flags = "S"))
 	
+	#retreive the flags from the recieved packet
+	f = pkt.getlayer(TCP).flags
 	
+	#See if the port is open
+	if f == 0x12 : 
+		return True
+	else:
+		return False
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	#send the reset packet
+	send(IP(dst=ip)/TCP(sport = sp, dport = p, flags = "R"))
+
