@@ -87,4 +87,43 @@ def scan_port(p, ip):
 	
 	#send the reset packet
 	send(IP(dst=ip)/TCP(sport = sp, dport = p, flags = "R"))
-
+		
+if __name__ == "__main__":
+	
+	try:
+	
+		the_inputs = inputs()
+		ip = the_inputs.get("ip")
+		ports = the_inputs.get("ports")
+	
+		print "[+] Scanning started ..."
+		for port in ports :
+			if scan_port(port, ip) is True :
+				print "[+] Port " + post + " is open."
+			else:
+				print "[-] Port " + post + " is closed."
+	
+		print "[+] Scanning finished."
+	
+	except KeyboardInterrupt:
+	
+		print "[x] Exit."
+		sys.exit(0)
+	
+	except Exception:
+	
+		print "[x] There was an error."
+		sys.exit(1)
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
