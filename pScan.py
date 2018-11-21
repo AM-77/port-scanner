@@ -19,11 +19,22 @@ def inputs():
 	ip = raw_input("[*] Target ip address : ")
 	#add is_valid_ip
 	
-	#add target is_up 
-	
-	
 	ports_range = range(int(min_port), int(max_port)+1)
 	
-	return {"ip":ip, "ports":ports}
+	return {"ip":ip, "ports":ports_range}
 	
 
+#Testing if the target is up and running
+def is_up(ip):
+	
+	#set level of verbosity to 0  /display nothing
+	conf.verb = 0
+	
+	try:
+		#the target is up if it sends back a response
+		ping = sr1((IP((dst=ip)/ICMP))
+		return True
+	
+	except Exception:
+		#An Exception will raise if the target was down
+		return False
